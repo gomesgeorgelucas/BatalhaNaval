@@ -35,7 +35,6 @@ public class MenuView {
             switch (option.toUpperCase()) {
                 case "J":
                     new BatalhaNavalView().show();
-                    stop();
                     break;
                 case "X":
                     stop();

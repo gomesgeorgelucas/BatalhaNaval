@@ -13,12 +13,8 @@ public class BatalhaNaval {
 
     public void validarJogada(Jogador jogador, Tabuleiro tabuleiroJogador, Tabuleiro tabuleiroOponente, int linha, int coluna) {
 
-        switch (tabuleiroOponente.getTabuleiro()[linha][coluna]) {
-            default:
-                break;
-        }
-
-        if (tabuleiroOponente.getTabuleiro()[linha][coluna] == SimbolosEnum._SIM_NAVIO_POSICIONADO.getSimbolo()) {
+        if (tabuleiroOponente.getTabuleiro()[linha][coluna] == SimbolosEnum._SIM_NAVIO_POSICIONADO.getSimbolo() ||
+                tabuleiroOponente.getTabuleiro()[linha][coluna] == SimbolosEnum._SIM_TIRO_AGUA_NAVIO_POSICIONADO.getSimbolo()) {
             tabuleiroOponente.getTabuleiro()[linha][coluna] = SimbolosEnum._SIM_AGUA.getSimbolo();
             if (tabuleiroJogador.getTabuleiro()[linha][coluna] == SimbolosEnum._SIM_NAVIO_POSICIONADO.getSimbolo()) {
                 tabuleiroJogador.getTabuleiro()[linha][coluna] = SimbolosEnum._SIM_TIRO_CERTEIRO_NAVIO_POSICIONADO.getSimbolo();
@@ -33,9 +29,6 @@ public class BatalhaNaval {
                 tabuleiroJogador.getTabuleiro()[linha][coluna] = SimbolosEnum._SIM_TIRO_NA_AGUA.getSimbolo();
             }
         }
-    }
-
-    public BatalhaNaval() {
     }
 
     public Jogador getJogador() {

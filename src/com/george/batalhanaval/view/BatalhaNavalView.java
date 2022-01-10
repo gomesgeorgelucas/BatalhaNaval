@@ -8,17 +8,21 @@ import com.george.batalhanaval.enums.SimbolosEnum;
 import java.util.Scanner;
 
 public class BatalhaNavalView {
-    private boolean debug = false;
+    private boolean debug = true;
 
     BatalhaNaval batalhaNaval = new BatalhaNaval();
+    TabuleiroView tabuleiroViewJogador;
+    TabuleiroView tabuleiroViewCPU;
 
     public BatalhaNavalView() {
         System.out.println("Qual o seu nome?");
         String name = new Scanner(System.in).nextLine();
         batalhaNaval.setJogador(new Jogador(name, true));
         batalhaNaval.setCpu(new Jogador("CPU", false));
-        batalhaNaval.setTabuleiroJogador(new Tabuleiro(batalhaNaval.getJogador()));
-        batalhaNaval.setTabuleiroCPU(new Tabuleiro(batalhaNaval.getCpu()));
+        batalhaNaval.setTabuleiroJogador(new Tabuleiro());
+        batalhaNaval.setTabuleiroCPU(new Tabuleiro());
+        tabuleiroViewJogador = new TabuleiroView(batalhaNaval.getJogador(), batalhaNaval.getTabuleiroJogador());
+        tabuleiroViewCPU = new TabuleiroView(batalhaNaval.getCpu(), batalhaNaval.getTabuleiroCPU());
     }
 
     private void jogar(Jogador jogador) {
@@ -37,16 +41,16 @@ public class BatalhaNavalView {
                 coluna = (int) Math.floor(Math.random() * 10);
             }
 
-            System.out.println("Coordenadas ataque CPU: " + batalhaNaval.getTabuleiroCPU().get_INDICES_LINHAS()[linha] + "-" + coluna);
+            System.out.println("Coordenadas ataque CPU: " + tabuleiroViewCPU.get_INDICES_LINHAS()[linha] + "-" + coluna);
 
             batalhaNaval.validarJogada(jogador, batalhaNaval.getTabuleiroCPU(), batalhaNaval.getTabuleiroJogador(), linha, coluna);
 
         } else {
             System.out.println("Coordenadas do ataque: ");
-            System.out.print("Escolha a linha (A-" + batalhaNaval.getTabuleiroJogador().get_INDICES_LINHAS()[batalhaNaval.getTabuleiroJogador().get_INDICES_LINHAS().length - 1] + "): ");
+            System.out.print("Escolha a linha (A-" + tabuleiroViewJogador.get_INDICES_LINHAS()[tabuleiroViewJogador.get_INDICES_LINHAS().length - 1] + "): ");
             letra = new Scanner(System.in).next().toUpperCase();
-            for (int k = 0; k < batalhaNaval.getTabuleiroJogador().get_INDICES_LINHAS().length; k++) {
-                if (batalhaNaval.getTabuleiroJogador().get_INDICES_LINHAS()[k] == letra.charAt(0)) {
+            for (int k = 0; k < tabuleiroViewJogador.get_INDICES_LINHAS().length; k++) {
+                if (tabuleiroViewJogador.get_INDICES_LINHAS()[k] == letra.charAt(0)) {
                     linha = k;
                     break;
                 }
@@ -64,16 +68,16 @@ public class BatalhaNavalView {
         boolean jogoAtivo = true;
 
         while (jogoAtivo) {
-            batalhaNaval.getTabuleiroJogador().desenhar(batalhaNaval.getJogador());
+            tabuleiroViewJogador.desenhar(batalhaNaval.getJogador());
             if (this.debug) {
-                batalhaNaval.getTabuleiroCPU().desenhar(batalhaNaval.getCpu());
+                tabuleiroViewCPU.desenhar(batalhaNaval.getCpu());
             }
 
             jogar(turnoCpu ? batalhaNaval.getCpu() : batalhaNaval.getJogador());
             System.out.println("Pontos JOGADOR: " + batalhaNaval.getJogador().getPontos());
             System.out.println("Pontos CPU: " + batalhaNaval.getCpu().getPontos());
 
-            if (batalhaNaval.getJogador().getPontos() == 10 || batalhaNaval.getJogador().getPontos() == 10 ) {
+            if (batalhaNaval.getCpu().getPontos() == 10 || batalhaNaval.getJogador().getPontos() == 10 ) {
                 jogoAtivo = !jogoAtivo;
             }
 
@@ -86,8 +90,8 @@ public class BatalhaNavalView {
 
     private void finalizar() {
         System.out.println("O vencedor foi: " + ((batalhaNaval.getJogador().getPontos() == 10) ? "JOGADOR" : "CPU"));
-        batalhaNaval.getTabuleiroJogador().desenhar(batalhaNaval.getJogador());
-        batalhaNaval.getTabuleiroCPU().desenhar(batalhaNaval.getCpu());
+        tabuleiroViewJogador.desenhar(batalhaNaval.getJogador());
+        tabuleiroViewCPU.desenhar(batalhaNaval.getCpu());
     }
 
 }

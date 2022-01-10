@@ -13,6 +13,9 @@ public class Jogador {
         this.quantidadeJogadas = 0;
     }
 
+    public Jogador() {
+    }
+
     public String getNome() {
         return nome;
     }
@@ -25,20 +28,8 @@ public class Jogador {
         this.pontos++;
     }
 
-    public int getQuantidadeJogadas() {
-        return quantidadeJogadas;
-    }
-
-    public void setQuantidadeJogadas(int quantidadeJogadas) {
-        this.quantidadeJogadas = quantidadeJogadas;
-    }
-
     public boolean isHuman() {
         return human;
-    }
-
-    public void setHuman(boolean human) {
-        this.human = human;
     }
 }
 

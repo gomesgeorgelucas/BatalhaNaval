@@ -8,5 +8,5 @@ Repositorio do Trabalho Final do Módulo de Java do Santander Coders
 - [ ] Verificar se computador está jogando inteligente, não jogando onde já tem símbolos tentado.
 - [ ] Não utilizar conteúdo que não foi dado.
 - [ ] TODO - Verificar todos os pontos de exceção de if/else e trocar por Exception
-- [ ] TODO - Criar menu.
-- [ ] TODO - Pegar nome do Jogador!
+- [x] TODO - Criar menu.
+- [x] TODO - Pegar nome do Jogador!
