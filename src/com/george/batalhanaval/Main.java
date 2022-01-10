@@ -1,7 +1,13 @@
 package com.george.batalhanaval;
 
+import com.george.batalhanaval.controller.BatalhaNavalController;
+
 public class Main {
+
+    public static final boolean _DEBUG = false;
+
     public static void main(String[] args) {
-        System.out.println("Batalha Hello");
+        BatalhaNavalController batalhaNaval = new BatalhaNavalController(_DEBUG);
+        batalhaNaval.executar();
     }
 }
