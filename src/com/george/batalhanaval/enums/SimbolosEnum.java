@@ -6,7 +6,8 @@ public enum SimbolosEnum {
     _SIM_TIRO_NA_AGUA('-'),
     _SIM_TIRO_CERTEIRO_NAVIO_POSICIONADO('X'),
     _SIM_TIRO_AGUA_NAVIO_POSICIONADO('n'),
-    _SIM_AGUA(' ');
+    _SIM_AGUA(' '),
+    _TIRO_ONDE_JA_TINHA_ACERTADO('D');
     private char simbolo;
 
     SimbolosEnum(char simbolo) {
