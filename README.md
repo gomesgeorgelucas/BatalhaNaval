@@ -1,7 +1,7 @@
 # BatalhaNaval
 Repositorio do Trabalho Final do Módulo de Java do Santander Coders
 
-- [ ] TODO - Mostrar Tabuleiro CPU no final
+- [X] TODO - Mostrar Tabuleiro CPU no final
 - [ ] Converter ENUMS ou utilizar corretamente
 - [ ] Verificar caso de navio acertar meu navio que já acertou um dele.
 - [ ] Manter estado do Jogo (navio acertou meu navio que já tinha acertado um dele X troca para *)

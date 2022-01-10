@@ -5,6 +5,9 @@ import com.george.batalhanaval.enums.SimbolosEnum;
 import java.util.Scanner;
 
 public class Tabuleiro {
+
+    private boolean debug = false;
+
     private final int _LINHAS = 10;
     private final int _COLUNAS = 10;
     private final char _INDICES_LINHAS[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
@@ -13,10 +16,10 @@ public class Tabuleiro {
 
     private char[][] tabuleiro;
 
-    public Tabuleiro(Jogador jogador, boolean debug) {
+    public Tabuleiro(Jogador jogador) {
         this.tabuleiro = new char[_LINHAS][_COLUNAS];
         limpar();
-        preencher(jogador, debug);
+        preencher(jogador);
     }
 
     public void desenhar(Jogador jogador) {
@@ -43,7 +46,7 @@ public class Tabuleiro {
         }
     }
 
-    public void preencher(Jogador jogador, boolean debug) {
+    public void preencher(Jogador jogador) {
         int linha = 0;
         int coluna = 0;
         String letra = "";

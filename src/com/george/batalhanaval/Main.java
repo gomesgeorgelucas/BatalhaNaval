@@ -1,13 +1,10 @@
 package com.george.batalhanaval;
 
-import com.george.batalhanaval.controller.BatalhaNavalController;
+import com.george.batalhanaval.view.MenuView;
 
 public class Main {
 
-    public static final boolean _DEBUG = false;
-
     public static void main(String[] args) {
-        BatalhaNavalController batalhaNaval = new BatalhaNavalController(_DEBUG);
-        batalhaNaval.executar();
+        new MenuView().show();
     }
 }
