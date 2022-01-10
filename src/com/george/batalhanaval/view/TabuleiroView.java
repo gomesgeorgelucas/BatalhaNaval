@@ -109,6 +109,30 @@ public class TabuleiroView {
 
     }
 
+    public void atualizaTabuleiro(Jogador jogador, Tabuleiro tabuleiroJogador, Tabuleiro tabuleiroOponente, int linha, int coluna, boolean hit) {
+        if (hit) {
+            if (tabuleiroOponente.getTabuleiro()[linha][coluna] == SimbolosEnum._SIM_NAVIO_POSICIONADO.getSimbolo()) {
+                tabuleiroOponente.getTabuleiro()[linha][coluna] = SimbolosEnum._SIM_AGUA.getSimbolo();
+            } else if (tabuleiroOponente.getTabuleiro()[linha][coluna] == SimbolosEnum._SIM_TIRO_AGUA_NAVIO_POSICIONADO.getSimbolo()) {
+                tabuleiroOponente.getTabuleiro()[linha][coluna] = SimbolosEnum._SIM_REMOVIDO_TIRO_AGUA_NAVIO_POSICIONADO.getSimbolo();
+            } else if (tabuleiroOponente.getTabuleiro()[linha][coluna] == SimbolosEnum._SIM_TIRO_CERTEIRO_NAVIO_POSICIONADO.getSimbolo()) {
+                tabuleiroOponente.getTabuleiro()[linha][coluna] = SimbolosEnum._SIM_REMOVIDO_SIM_TIRO_CERTEIRO_NAVIO_POSICIONADO.getSimbolo();
+            }
+
+            if (tabuleiroJogador.getTabuleiro()[linha][coluna] == SimbolosEnum._SIM_NAVIO_POSICIONADO.getSimbolo()) {
+                tabuleiroJogador.getTabuleiro()[linha][coluna] = SimbolosEnum._SIM_TIRO_CERTEIRO_NAVIO_POSICIONADO.getSimbolo();
+            } else if (tabuleiroJogador.getTabuleiro()[linha][coluna] == SimbolosEnum._SIM_AGUA.getSimbolo()) {
+                tabuleiroJogador.getTabuleiro()[linha][coluna] = SimbolosEnum._SIM_TIRO_CERTEIRO.getSimbolo();
+            }
+        } else {
+            if (tabuleiroJogador.getTabuleiro()[linha][coluna] == SimbolosEnum._SIM_NAVIO_POSICIONADO.getSimbolo()) {
+                tabuleiroJogador.getTabuleiro()[linha][coluna] = SimbolosEnum._SIM_TIRO_AGUA_NAVIO_POSICIONADO.getSimbolo();
+            } else if (tabuleiroJogador.getTabuleiro()[linha][coluna] == SimbolosEnum._SIM_AGUA.getSimbolo()) {
+                tabuleiroJogador.getTabuleiro()[linha][coluna] = SimbolosEnum._SIM_TIRO_NA_AGUA.getSimbolo();
+            }
+        }
+    }
+
     public char[] get_INDICES_LINHAS() {
         return _INDICES_LINHAS;
     }

@@ -43,7 +43,15 @@ public class BatalhaNavalView {
 
             System.out.println("Coordenadas ataque CPU: " + tabuleiroViewCPU.get_INDICES_LINHAS()[linha] + "-" + coluna);
 
-            batalhaNaval.validarJogada(jogador, batalhaNaval.getTabuleiroCPU(), batalhaNaval.getTabuleiroJogador(), linha, coluna);
+
+            tabuleiroViewCPU.atualizaTabuleiro(
+                    jogador,
+                    batalhaNaval.getTabuleiroCPU(),
+                    batalhaNaval.getTabuleiroJogador(),
+                    linha,
+                    coluna,
+                    batalhaNaval.verificarJogada(jogador, batalhaNaval.getTabuleiroCPU(), batalhaNaval.getTabuleiroJogador(), linha, coluna));
+
 
         } else {
             System.out.println("Coordenadas do ataque: ");
@@ -58,8 +66,13 @@ public class BatalhaNavalView {
             System.out.print("Escolha a coluna (0-" + (batalhaNaval.getTabuleiroJogador().get_COLUNAS() - 1) + "): ");
             coluna = new Scanner(System.in).nextInt();
 
-            //Verifica Jogada
-            batalhaNaval.validarJogada(jogador, batalhaNaval.getTabuleiroJogador(), batalhaNaval.getTabuleiroCPU(), linha, coluna);
+            tabuleiroViewCPU.atualizaTabuleiro(
+                    jogador,
+                    batalhaNaval.getTabuleiroJogador(),
+                    batalhaNaval.getTabuleiroCPU(),
+                    linha,
+                    coluna,
+                    batalhaNaval.verificarJogada(jogador, batalhaNaval.getTabuleiroJogador(), batalhaNaval.getTabuleiroCPU(), linha, coluna));
         }
     }
 

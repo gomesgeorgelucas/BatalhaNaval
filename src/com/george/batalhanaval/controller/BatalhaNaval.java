@@ -11,26 +11,15 @@ public class BatalhaNaval {
     private Tabuleiro tabuleiroJogador;
     private Tabuleiro tabuleiroCPU;
 
-    public void validarJogada(Jogador jogador, Tabuleiro tabuleiroJogador, Tabuleiro tabuleiroOponente, int linha, int coluna) {
+    public boolean verificarJogada(Jogador jogador, Tabuleiro tabuleiroJogador, Tabuleiro tabuleiroOponente, int linha, int coluna) {
 
-        if (tabuleiroOponente.getTabuleiro()[linha][coluna] == SimbolosEnum._SIM_NAVIO_POSICIONADO.getSimbolo()
-                || tabuleiroOponente.getTabuleiro()[linha][coluna] == SimbolosEnum._SIM_TIRO_AGUA_NAVIO_POSICIONADO.getSimbolo()) {
-            tabuleiroOponente.getTabuleiro()[linha][coluna] = SimbolosEnum._SIM_AGUA.getSimbolo();
-            if (tabuleiroJogador.getTabuleiro()[linha][coluna] == SimbolosEnum._SIM_NAVIO_POSICIONADO.getSimbolo()) {
-                tabuleiroJogador.getTabuleiro()[linha][coluna] = SimbolosEnum._SIM_TIRO_CERTEIRO_NAVIO_POSICIONADO.getSimbolo();
-            } else if (tabuleiroJogador.getTabuleiro()[linha][coluna] == SimbolosEnum._SIM_AGUA.getSimbolo()) {
-                tabuleiroJogador.getTabuleiro()[linha][coluna] = SimbolosEnum._SIM_TIRO_CERTEIRO.getSimbolo();
-            }
-            jogador.pontuar();
-        } else if (tabuleiroOponente.getTabuleiro()[linha][coluna] == SimbolosEnum._SIM_TIRO_CERTEIRO_NAVIO_POSICIONADO.getSimbolo()) {
-                //TODO mudar char
-        } else {
-            if (tabuleiroJogador.getTabuleiro()[linha][coluna] == SimbolosEnum._SIM_NAVIO_POSICIONADO.getSimbolo()) {
-                tabuleiroJogador.getTabuleiro()[linha][coluna] = SimbolosEnum._SIM_TIRO_AGUA_NAVIO_POSICIONADO.getSimbolo();
-            } else if (tabuleiroJogador.getTabuleiro()[linha][coluna] == SimbolosEnum._SIM_AGUA.getSimbolo()) {
-                tabuleiroJogador.getTabuleiro()[linha][coluna] = SimbolosEnum._SIM_TIRO_NA_AGUA.getSimbolo();
-            }
-        }
+        if (
+                tabuleiroOponente.getTabuleiro()[linha][coluna] == SimbolosEnum._SIM_NAVIO_POSICIONADO.getSimbolo()
+                || tabuleiroOponente.getTabuleiro()[linha][coluna] == SimbolosEnum._SIM_TIRO_AGUA_NAVIO_POSICIONADO.getSimbolo()
+                || tabuleiroOponente.getTabuleiro()[linha][coluna] == SimbolosEnum._SIM_TIRO_CERTEIRO_NAVIO_POSICIONADO.getSimbolo()
+        ) {jogador.pontuar();
+        return true;}
+        return false;
     }
 
     public Jogador getJogador() {
