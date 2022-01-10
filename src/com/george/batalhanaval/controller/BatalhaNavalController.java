@@ -7,7 +7,6 @@ import com.george.batalhanaval.enums.SimbolosEnum;
 import java.util.Scanner;
 
 public class BatalhaNavalController {
-    private Scanner scanner;
     private boolean debug;
 
     private Jogador jogador;
@@ -18,12 +17,11 @@ public class BatalhaNavalController {
 
     public BatalhaNavalController(boolean debug) {
         this.debug = debug;
-        this.scanner = new Scanner(System.in);
         this.jogador = new Jogador("JOGADOR", true);
         this.cpu = new Jogador("CPU", false);
 
-        this.tabuleiroJogador =  new Tabuleiro(jogador, scanner, debug);
-        this.tabuleiroCPU = new Tabuleiro(cpu, scanner, debug);
+        this.tabuleiroJogador =  new Tabuleiro(jogador, debug);
+        this.tabuleiroCPU = new Tabuleiro(cpu, debug);
     }
 
     public void executar() {
@@ -73,7 +71,7 @@ public class BatalhaNavalController {
         } else {
             System.out.println("Coordenadas do ataque: ");
             System.out.print("Escolha a linha (A-" + tabuleiroJogador.get_INDICES_LINHAS()[tabuleiroJogador.get_INDICES_LINHAS().length - 1] + "): ");
-            letra = scanner.next().toUpperCase();
+            letra = new Scanner(System.in).next().toUpperCase();
             for (int k = 0; k < tabuleiroJogador.get_INDICES_LINHAS().length; k++) {
                 if (tabuleiroJogador.get_INDICES_LINHAS()[k] == letra.charAt(0)) {
                     linha = k;
@@ -81,7 +79,7 @@ public class BatalhaNavalController {
                 }
             }
             System.out.print("Escolha a coluna (0-" + (tabuleiroJogador.get_COLUNAS() - 1) + "): ");
-            coluna = scanner.nextInt();
+            coluna = new Scanner(System.in).nextInt();
 
             //Verifica Jogada
             validarJogada(jogador, tabuleiroJogador, tabuleiroCPU, linha, coluna);

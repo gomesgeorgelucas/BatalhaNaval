@@ -13,10 +13,10 @@ public class Tabuleiro {
 
     private char[][] tabuleiro;
 
-    public Tabuleiro(Jogador jogador, Scanner scanner, boolean debug) {
+    public Tabuleiro(Jogador jogador, boolean debug) {
         this.tabuleiro = new char[_LINHAS][_COLUNAS];
         limpar();
-        preencher(jogador, scanner, debug);
+        preencher(jogador, debug);
     }
 
     public void desenhar(Jogador jogador) {
@@ -43,7 +43,7 @@ public class Tabuleiro {
         }
     }
 
-    public void preencher(Jogador jogador, Scanner scanner, boolean debug) {
+    public void preencher(Jogador jogador, boolean debug) {
         int linha = 0;
         int coluna = 0;
         String letra = "";
@@ -77,7 +77,7 @@ public class Tabuleiro {
                 for (int i = 0; i < _QTD_NAVIOS; i++) {
                     System.out.println("Navio no. " + (i + 1));
                     System.out.print("Escolha a linha (A-" + _INDICES_LINHAS[_INDICES_LINHAS.length - 1] + "): ");
-                    letra = scanner.next().toUpperCase();
+                    letra = new Scanner(System.in).next().toUpperCase();
                     for (int k = 0; k < _INDICES_LINHAS.length; k++) {
                         if (_INDICES_LINHAS[k] == letra.charAt(0)) {
                             linha = k;
@@ -85,7 +85,7 @@ public class Tabuleiro {
                         }
                     }
                     System.out.print("Escolha a coluna (0-" + (_COLUNAS - 1) + "): ");
-                    coluna = scanner.nextInt();
+                    coluna = new Scanner(System.in).nextInt();
 
 
                     getTabuleiro()[linha][coluna] = SimbolosEnum._SIM_NAVIO_POSICIONADO.getSimbolo();
