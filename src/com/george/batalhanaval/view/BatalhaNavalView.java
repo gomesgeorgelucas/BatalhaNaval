@@ -13,8 +13,19 @@ public class BatalhaNavalView {
     TabuleiroView tabuleiroViewCPU;
 
     public BatalhaNavalView() {
-        System.out.println("Qual o seu nome?");
-        String name = new Scanner(System.in).nextLine();
+        String name = "";
+        do {
+            System.out.println("Qual o seu nome?");
+            try {
+                name = new Scanner(System.in).nextLine();
+                if (name.isEmpty() || name.isBlank() || name == null) {
+                    System.out.println("Entrada inválida!");
+                }
+            } catch (Exception e) {
+                System.out.println("Entrada inválida!");
+            }
+        } while (name.isEmpty() || name.isBlank() || name == null);
+
         batalhaNaval.setJogador(new Jogador(name, true));
         batalhaNaval.setCpu(new Jogador("CPU", false));
         batalhaNaval.setTabuleiroJogador(new Tabuleiro());
@@ -25,19 +36,21 @@ public class BatalhaNavalView {
 
     private void jogar(Jogador jogador) {
 
-        int linha = 0;
-        int coluna;
-        String letra;
+        int linha = -1;
+        int coluna = -1;
+        String letra = "";
 
         if (!jogador.isHuman()) {
-            linha = (int) Math.floor(Math.random() * 10);
-            coluna = (int) Math.floor(Math.random() * 10);
-
-            while (batalhaNaval.getTabuleiroCPU().getTabuleiro()[linha][coluna] != Symbols._SIM_AGUA
-                    && batalhaNaval.getTabuleiroCPU().getTabuleiro()[linha][coluna] != Symbols._SIM_NAVIO_POSICIONADO) {
+            do {
                 linha = (int) Math.floor(Math.random() * 10);
                 coluna = (int) Math.floor(Math.random() * 10);
-            }
+            } while (batalhaNaval.getTabuleiroCPU().getTabuleiro()[linha][coluna] == Symbols._SIM_TIRO_NA_AGUA
+                    || batalhaNaval.getTabuleiroCPU().getTabuleiro()[linha][coluna] == Symbols._SIM_TIRO_CERTEIRO
+                    || batalhaNaval.getTabuleiroCPU().getTabuleiro()[linha][coluna] == Symbols._SIM_TIRO_CERTEIRO_NAVIO_POSICIONADO
+                    || batalhaNaval.getTabuleiroCPU().getTabuleiro()[linha][coluna] == Symbols._SIM_TIRO_AGUA_NAVIO_POSICIONADO
+                    || batalhaNaval.getTabuleiroCPU().getTabuleiro()[linha][coluna] == Symbols._SIM_REMOVIDO_TIRO_AGUA_NAVIO_POSICIONADO
+                    || batalhaNaval.getTabuleiroCPU().getTabuleiro()[linha][coluna] == Symbols._SIM_REMOVIDO_SIM_TIRO_CERTEIRO_NAVIO_POSICIONADO
+            );
 
             System.out.println("Coordenadas ataque CPU: " + tabuleiroViewCPU.get_INDICES_LINHAS()[linha] + "-" + coluna);
 
@@ -52,16 +65,51 @@ public class BatalhaNavalView {
 
         } else {
             System.out.println("Coordenadas do ataque: ");
-            System.out.print("Escolha a linha (A-" + tabuleiroViewJogador.get_INDICES_LINHAS()[tabuleiroViewJogador.get_INDICES_LINHAS().length - 1] + "): ");
-            letra = new Scanner(System.in).next().toUpperCase();
+
+            do {
+                try {
+                    System.out.print("Escolha a linha (A-" + tabuleiroViewJogador.get_INDICES_LINHAS()[tabuleiroViewJogador.get_INDICES_LINHAS().length - 1] + "): ");
+                    letra = new Scanner(System.in).next().toUpperCase();
+
+                    if (
+                            letra == null
+                                    || letra.toCharArray().length > 1
+                                    || letra.isBlank()
+                                    || letra.isEmpty()
+                                    || !(new String(TabuleiroView._INDICES_LINHAS).contains(letra))) {
+                        System.out.println("Entrada inválida!");
+                    }
+
+                } catch (Exception e) {
+                    System.out.println("Entrada invalida!");
+                }
+            } while (
+                    letra == null
+                            || letra.toCharArray().length > 1
+                            || letra.isBlank()
+                            || letra.isEmpty()
+                            || !(new String(TabuleiroView._INDICES_LINHAS).contains(letra)));
+
             for (int k = 0; k < tabuleiroViewJogador.get_INDICES_LINHAS().length; k++) {
                 if (tabuleiroViewJogador.get_INDICES_LINHAS()[k] == letra.charAt(0)) {
                     linha = k;
                     break;
                 }
             }
-            System.out.print("Escolha a coluna (0-" + (batalhaNaval.getTabuleiroJogador().get_COLUNAS() - 1) + "): ");
-            coluna = new Scanner(System.in).nextInt();
+
+            do {
+                try {
+                    System.out.print("Escolha a coluna (0-" + (batalhaNaval.getTabuleiroJogador().get_COLUNAS() - 1) + "): ");
+                    coluna = new Scanner(System.in).nextInt();
+
+                    if (coluna < 0 || coluna > 9) {
+                        System.out.println("Entrada inválida!");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Entrada invalida!");
+                }
+
+            } while (coluna < 0 || coluna > 9);
 
             tabuleiroViewCPU.atualizaTabuleiro(
                     batalhaNaval.getTabuleiroJogador(),
@@ -73,7 +121,7 @@ public class BatalhaNavalView {
     }
 
     public void show() {
-        boolean debug = true;
+        boolean debug = false;
         boolean turnoCpu = false;
         boolean jogoAtivo = true;
 

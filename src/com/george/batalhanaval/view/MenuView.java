@@ -41,10 +41,11 @@ public class MenuView {
                     break;
                 default:
                     ScreenUtil.printTextLine("Opção inválida", 100);
+                    loadView();
                     ScreenUtil.printTextLine("#: ", 100);
                     break;
             }
-            loadView();
+            //loadView();
         } while (run);
     }
 

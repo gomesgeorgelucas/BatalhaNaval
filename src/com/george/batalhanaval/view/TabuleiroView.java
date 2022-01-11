@@ -11,7 +11,8 @@ public class TabuleiroView {
     Tabuleiro tabuleiro;
     Jogador jogador;
 
-    private final char[] _INDICES_LINHAS = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
+    public static final char[] _INDICES_LINHAS = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
+    public static final char[] _INDICE_COLUNAS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
 
 
@@ -55,10 +56,10 @@ public class TabuleiroView {
     }
 
     public void preencher() {
-        int linha = 0;
-        int coluna;
-        String letra;
-        boolean debug = true;
+        int linha = -1;
+        int coluna = -1;
+        String letra = "";
+        boolean debug = false;
         int _QTD_NAVIOS = 10;
 
         if (!jogador.isHuman()) {
@@ -89,16 +90,50 @@ public class TabuleiroView {
                 System.out.println("Posicione os seus " + _QTD_NAVIOS + " navios! (N)");
                 for (int i = 0; i < _QTD_NAVIOS; i++) {
                     System.out.println("Navio no. " + (i + 1));
-                    System.out.print("Escolha a linha (A-" + _INDICES_LINHAS[_INDICES_LINHAS.length - 1] + "): ");
-                    letra = new Scanner(System.in).next().toUpperCase();
+                    do {
+                        try {
+                            System.out.print("Escolha a linha (A-" + _INDICES_LINHAS[_INDICES_LINHAS.length - 1] + "): ");
+                            letra = new Scanner(System.in).next().toUpperCase();
+
+                            if (
+                                    letra == null
+                                            || letra.toCharArray().length > 1
+                                            || letra.isBlank()
+                                            || letra.isEmpty()
+                                            || !(new String(_INDICES_LINHAS).contains(letra))) {
+                                System.out.println("Entrada inválida!");
+                            }
+
+                        } catch (Exception e) {
+                            System.out.println("Entrada invalida!");
+                        }
+                    } while (
+                            letra == null
+                                    || letra.toCharArray().length > 1
+                                    || letra.isBlank()
+                                    || letra.isEmpty()
+                                    || !(new String(_INDICES_LINHAS).contains(letra)));
+
                     for (int k = 0; k < _INDICES_LINHAS.length; k++) {
                         if (_INDICES_LINHAS[k] == letra.charAt(0)) {
                             linha = k;
                             break;
                         }
                     }
-                    System.out.print("Escolha a coluna (0-" + (tabuleiro.get_COLUNAS() - 1) + "): ");
-                    coluna = new Scanner(System.in).nextInt();
+
+                    do {
+                        try {
+                            System.out.print("Escolha a coluna (0-" + (tabuleiro.get_COLUNAS() - 1) + "): ");
+                            coluna = new Scanner(System.in).nextInt();
+
+                            if (coluna < 0 || coluna > 9) {
+                                System.out.println("Entrada inválida!");
+                            }
+                        } catch (Exception e) {
+                            System.out.println("Entrada invalida!");
+                        }
+
+                    } while (coluna < 0 || coluna > 9);
 
 
                     tabuleiro.getTabuleiro()[linha][coluna] = Symbols._SIM_NAVIO_POSICIONADO;
