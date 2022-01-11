@@ -1,6 +1,5 @@
 package com.george.batalhanaval.view;
 
-import javax.xml.catalog.Catalog;
 import java.util.Scanner;
 
 public class MenuView {
@@ -27,6 +26,7 @@ public class MenuView {
         ScreenUtil.printTextLine("#: ", 100);
     }
 
+    @SuppressWarnings("EnhancedSwitchMigration")
     public void show() {
         loadView();
         String option;

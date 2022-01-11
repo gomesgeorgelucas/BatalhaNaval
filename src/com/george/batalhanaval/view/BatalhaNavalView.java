@@ -3,12 +3,10 @@ package com.george.batalhanaval.view;
 import com.george.batalhanaval.controller.BatalhaNaval;
 import com.george.batalhanaval.domain.Jogador;
 import com.george.batalhanaval.domain.Tabuleiro;
-import com.george.batalhanaval.enums.SimbolosEnum;
 
 import java.util.Scanner;
 
 public class BatalhaNavalView {
-    private boolean debug = true;
 
     BatalhaNaval batalhaNaval = new BatalhaNaval();
     TabuleiroView tabuleiroViewJogador;
@@ -28,15 +26,15 @@ public class BatalhaNavalView {
     private void jogar(Jogador jogador) {
 
         int linha = 0;
-        int coluna = 0;
-        String letra = "";
+        int coluna;
+        String letra;
 
         if (!jogador.isHuman()) {
             linha = (int) Math.floor(Math.random() * 10);
             coluna = (int) Math.floor(Math.random() * 10);
 
-            while (batalhaNaval.getTabuleiroCPU().getTabuleiro()[linha][coluna] != SimbolosEnum._SIM_AGUA.getSimbolo()
-                    && batalhaNaval.getTabuleiroCPU().getTabuleiro()[linha][coluna] != SimbolosEnum._SIM_NAVIO_POSICIONADO.getSimbolo()) {
+            while (batalhaNaval.getTabuleiroCPU().getTabuleiro()[linha][coluna] != Symbols._SIM_AGUA
+                    && batalhaNaval.getTabuleiroCPU().getTabuleiro()[linha][coluna] != Symbols._SIM_NAVIO_POSICIONADO) {
                 linha = (int) Math.floor(Math.random() * 10);
                 coluna = (int) Math.floor(Math.random() * 10);
             }
@@ -45,12 +43,11 @@ public class BatalhaNavalView {
 
 
             tabuleiroViewCPU.atualizaTabuleiro(
-                    jogador,
                     batalhaNaval.getTabuleiroCPU(),
                     batalhaNaval.getTabuleiroJogador(),
                     linha,
                     coluna,
-                    batalhaNaval.verificarJogada(jogador, batalhaNaval.getTabuleiroCPU(), batalhaNaval.getTabuleiroJogador(), linha, coluna));
+                    batalhaNaval.verificarJogada(jogador, batalhaNaval.getTabuleiroJogador(), linha, coluna));
 
 
         } else {
@@ -67,22 +64,22 @@ public class BatalhaNavalView {
             coluna = new Scanner(System.in).nextInt();
 
             tabuleiroViewCPU.atualizaTabuleiro(
-                    jogador,
                     batalhaNaval.getTabuleiroJogador(),
                     batalhaNaval.getTabuleiroCPU(),
                     linha,
                     coluna,
-                    batalhaNaval.verificarJogada(jogador, batalhaNaval.getTabuleiroJogador(), batalhaNaval.getTabuleiroCPU(), linha, coluna));
+                    batalhaNaval.verificarJogada(jogador, batalhaNaval.getTabuleiroCPU(), linha, coluna));
         }
     }
 
     public void show() {
+        boolean debug = true;
         boolean turnoCpu = false;
         boolean jogoAtivo = true;
 
         while (jogoAtivo) {
             tabuleiroViewJogador.desenhar(batalhaNaval.getJogador());
-            if (this.debug) {
+            if (debug) {
                 tabuleiroViewCPU.desenhar(batalhaNaval.getCpu());
             }
 
@@ -96,7 +93,6 @@ public class BatalhaNavalView {
 
             turnoCpu = !turnoCpu;
         }
-
         finalizar();
     }
 

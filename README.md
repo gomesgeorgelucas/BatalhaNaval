@@ -1,8 +1,8 @@
 # BatalhaNaval
 Repositorio do Trabalho Final do Módulo de Java do Santander Coders
 
-- [X] TODO - Mostrar Tabuleiro CPU no final
-- [ ] Converter ENUMS ou utilizar corretamente
+- [x] TODO - Mostrar Tabuleiro CPU no final
+- [x] Converter ENUMS ou utilizar corretamente - substituído por classe de atributos estáticos
 - [ ] Criar jogada view
 - [x] Verificar caso de navio acertar meu navio que já acertou um dele.
 - [x] Manter estado do Jogo (navio acertou meu navio que já tinha acertado um dele X troca para *)

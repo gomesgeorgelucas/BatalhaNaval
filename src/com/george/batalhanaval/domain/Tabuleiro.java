@@ -5,7 +5,7 @@ public class Tabuleiro {
     private final int _LINHAS = 10;
     private final int _COLUNAS = 10;
 
-    private char[][] tabuleiro;
+    private final char[][] tabuleiro;
 
     public Tabuleiro() {
         this.tabuleiro = new char[_LINHAS][_COLUNAS];

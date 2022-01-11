@@ -2,20 +2,18 @@ package com.george.batalhanaval.view;
 
 import com.george.batalhanaval.domain.Jogador;
 import com.george.batalhanaval.domain.Tabuleiro;
-import com.george.batalhanaval.enums.SimbolosEnum;
+
 
 import java.util.Scanner;
 
 public class TabuleiroView {
-    private boolean debug = true;
 
     Tabuleiro tabuleiro;
     Jogador jogador;
 
-    private final char _INDICES_LINHAS[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
-    private final char _INDICES_COLUNAS[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+    private final char[] _INDICES_LINHAS = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
 
-    private final int _QTD_NAVIOS = 10;
+
 
     public TabuleiroView(Jogador jogador, Tabuleiro tabuleiro) {
         this.tabuleiro = tabuleiro;
@@ -51,38 +49,40 @@ public class TabuleiroView {
     public void limpar() {
         for (int i = 0; i < tabuleiro.get_LINHAS(); i++) {
             for (int j = 0; j < tabuleiro.get_COLUNAS(); j++) {
-                tabuleiro.getTabuleiro()[i][j] = SimbolosEnum._SIM_AGUA.getSimbolo();
+                tabuleiro.getTabuleiro()[i][j] = Symbols._SIM_AGUA;
             }
         }
     }
 
     public void preencher() {
         int linha = 0;
-        int coluna = 0;
-        String letra = "";
+        int coluna;
+        String letra;
+        boolean debug = true;
+        int _QTD_NAVIOS = 10;
 
         if (!jogador.isHuman()) {
             for (int i = 0; i < tabuleiro.get_COLUNAS(); i++) {
                 linha = (int) Math.floor(Math.random() * 10);
                 coluna = (int) Math.floor(Math.random() * 10);
-                while (tabuleiro.getTabuleiro()[linha][coluna] == SimbolosEnum._SIM_NAVIO_POSICIONADO.getSimbolo()) {
+                while (tabuleiro.getTabuleiro()[linha][coluna] == Symbols._SIM_NAVIO_POSICIONADO) {
                     linha = (int) Math.floor(Math.random() * 10);
                     coluna = (int) Math.floor(Math.random() * 10);
                 }
-                tabuleiro.getTabuleiro()[linha][coluna] = SimbolosEnum._SIM_NAVIO_POSICIONADO.getSimbolo();
+                tabuleiro.getTabuleiro()[linha][coluna] = Symbols._SIM_NAVIO_POSICIONADO;
             }
         } else {
             if (debug) {
-                tabuleiro.getTabuleiro()[0][0] = SimbolosEnum._SIM_NAVIO_POSICIONADO.getSimbolo();
-                tabuleiro.getTabuleiro()[1][1] = SimbolosEnum._SIM_NAVIO_POSICIONADO.getSimbolo();
-                tabuleiro.getTabuleiro()[2][2] = SimbolosEnum._SIM_NAVIO_POSICIONADO.getSimbolo();
-                tabuleiro.getTabuleiro()[3][3] = SimbolosEnum._SIM_NAVIO_POSICIONADO.getSimbolo();
-                tabuleiro.getTabuleiro()[4][4] = SimbolosEnum._SIM_NAVIO_POSICIONADO.getSimbolo();
-                tabuleiro.getTabuleiro()[5][5] = SimbolosEnum._SIM_NAVIO_POSICIONADO.getSimbolo();
-                tabuleiro.getTabuleiro()[6][6] = SimbolosEnum._SIM_NAVIO_POSICIONADO.getSimbolo();
-                tabuleiro.getTabuleiro()[7][7] = SimbolosEnum._SIM_NAVIO_POSICIONADO.getSimbolo();
-                tabuleiro.getTabuleiro()[8][8] = SimbolosEnum._SIM_NAVIO_POSICIONADO.getSimbolo();
-                tabuleiro.getTabuleiro()[9][9] = SimbolosEnum._SIM_NAVIO_POSICIONADO.getSimbolo();
+                tabuleiro.getTabuleiro()[0][0] = Symbols._SIM_NAVIO_POSICIONADO;
+                tabuleiro.getTabuleiro()[1][1] = Symbols._SIM_NAVIO_POSICIONADO;
+                tabuleiro.getTabuleiro()[2][2] = Symbols._SIM_NAVIO_POSICIONADO;
+                tabuleiro.getTabuleiro()[3][3] = Symbols._SIM_NAVIO_POSICIONADO;
+                tabuleiro.getTabuleiro()[4][4] = Symbols._SIM_NAVIO_POSICIONADO;
+                tabuleiro.getTabuleiro()[5][5] = Symbols._SIM_NAVIO_POSICIONADO;
+                tabuleiro.getTabuleiro()[6][6] = Symbols._SIM_NAVIO_POSICIONADO;
+                tabuleiro.getTabuleiro()[7][7] = Symbols._SIM_NAVIO_POSICIONADO;
+                tabuleiro.getTabuleiro()[8][8] = Symbols._SIM_NAVIO_POSICIONADO;
+                tabuleiro.getTabuleiro()[9][9] = Symbols._SIM_NAVIO_POSICIONADO;
 
             } else {
                 desenhar(jogador);
@@ -101,7 +101,7 @@ public class TabuleiroView {
                     coluna = new Scanner(System.in).nextInt();
 
 
-                    tabuleiro.getTabuleiro()[linha][coluna] = SimbolosEnum._SIM_NAVIO_POSICIONADO.getSimbolo();
+                    tabuleiro.getTabuleiro()[linha][coluna] = Symbols._SIM_NAVIO_POSICIONADO;
                     desenhar(jogador);
                 }
             }
@@ -109,26 +109,26 @@ public class TabuleiroView {
 
     }
 
-    public void atualizaTabuleiro(Jogador jogador, Tabuleiro tabuleiroJogador, Tabuleiro tabuleiroOponente, int linha, int coluna, boolean hit) {
+    public void atualizaTabuleiro(Tabuleiro tabuleiroJogador, Tabuleiro tabuleiroOponente, int linha, int coluna, boolean hit) {
         if (hit) {
-            if (tabuleiroOponente.getTabuleiro()[linha][coluna] == SimbolosEnum._SIM_NAVIO_POSICIONADO.getSimbolo()) {
-                tabuleiroOponente.getTabuleiro()[linha][coluna] = SimbolosEnum._SIM_AGUA.getSimbolo();
-            } else if (tabuleiroOponente.getTabuleiro()[linha][coluna] == SimbolosEnum._SIM_TIRO_AGUA_NAVIO_POSICIONADO.getSimbolo()) {
-                tabuleiroOponente.getTabuleiro()[linha][coluna] = SimbolosEnum._SIM_REMOVIDO_TIRO_AGUA_NAVIO_POSICIONADO.getSimbolo();
-            } else if (tabuleiroOponente.getTabuleiro()[linha][coluna] == SimbolosEnum._SIM_TIRO_CERTEIRO_NAVIO_POSICIONADO.getSimbolo()) {
-                tabuleiroOponente.getTabuleiro()[linha][coluna] = SimbolosEnum._SIM_REMOVIDO_SIM_TIRO_CERTEIRO_NAVIO_POSICIONADO.getSimbolo();
+            if (tabuleiroOponente.getTabuleiro()[linha][coluna] == Symbols._SIM_NAVIO_POSICIONADO) {
+                tabuleiroOponente.getTabuleiro()[linha][coluna] = Symbols._SIM_AGUA;
+            } else if (tabuleiroOponente.getTabuleiro()[linha][coluna] == Symbols._SIM_TIRO_AGUA_NAVIO_POSICIONADO) {
+                tabuleiroOponente.getTabuleiro()[linha][coluna] = Symbols._SIM_REMOVIDO_TIRO_AGUA_NAVIO_POSICIONADO;
+            } else if (tabuleiroOponente.getTabuleiro()[linha][coluna] == Symbols._SIM_TIRO_CERTEIRO_NAVIO_POSICIONADO) {
+                tabuleiroOponente.getTabuleiro()[linha][coluna] = Symbols._SIM_REMOVIDO_SIM_TIRO_CERTEIRO_NAVIO_POSICIONADO;
             }
 
-            if (tabuleiroJogador.getTabuleiro()[linha][coluna] == SimbolosEnum._SIM_NAVIO_POSICIONADO.getSimbolo()) {
-                tabuleiroJogador.getTabuleiro()[linha][coluna] = SimbolosEnum._SIM_TIRO_CERTEIRO_NAVIO_POSICIONADO.getSimbolo();
-            } else if (tabuleiroJogador.getTabuleiro()[linha][coluna] == SimbolosEnum._SIM_AGUA.getSimbolo()) {
-                tabuleiroJogador.getTabuleiro()[linha][coluna] = SimbolosEnum._SIM_TIRO_CERTEIRO.getSimbolo();
+            if (tabuleiroJogador.getTabuleiro()[linha][coluna] == Symbols._SIM_NAVIO_POSICIONADO) {
+                tabuleiroJogador.getTabuleiro()[linha][coluna] = Symbols._SIM_TIRO_CERTEIRO_NAVIO_POSICIONADO;
+            } else if (tabuleiroJogador.getTabuleiro()[linha][coluna] == Symbols._SIM_AGUA) {
+                tabuleiroJogador.getTabuleiro()[linha][coluna] = Symbols._SIM_TIRO_CERTEIRO;
             }
         } else {
-            if (tabuleiroJogador.getTabuleiro()[linha][coluna] == SimbolosEnum._SIM_NAVIO_POSICIONADO.getSimbolo()) {
-                tabuleiroJogador.getTabuleiro()[linha][coluna] = SimbolosEnum._SIM_TIRO_AGUA_NAVIO_POSICIONADO.getSimbolo();
-            } else if (tabuleiroJogador.getTabuleiro()[linha][coluna] == SimbolosEnum._SIM_AGUA.getSimbolo()) {
-                tabuleiroJogador.getTabuleiro()[linha][coluna] = SimbolosEnum._SIM_TIRO_NA_AGUA.getSimbolo();
+            if (tabuleiroJogador.getTabuleiro()[linha][coluna] == Symbols._SIM_NAVIO_POSICIONADO) {
+                tabuleiroJogador.getTabuleiro()[linha][coluna] = Symbols._SIM_TIRO_AGUA_NAVIO_POSICIONADO;
+            } else if (tabuleiroJogador.getTabuleiro()[linha][coluna] == Symbols._SIM_AGUA) {
+                tabuleiroJogador.getTabuleiro()[linha][coluna] = Symbols._SIM_TIRO_NA_AGUA;
             }
         }
     }
