@@ -1,5 +1,4 @@
 # BatalhaNaval
-Repositorio do Trabalho Final do Módulo de Java do Santander Coders
 
 - [x] TODO - Mostrar Tabuleiro CPU no final
 - [x] Converter ENUMS ou utilizar corretamente - substituído por classe de atributos estáticos
